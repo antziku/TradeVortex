@@ -1,0 +1,103 @@
+version: '3.9'
+
+services:
+  react:
+    container_name: react
+    build:
+      context: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_DEV_SERVER_HMR_HOST=host.docker.internal
+      - VITE_DEV_SERVER_HMR_PORT=3000
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=development
+    command: >
+      sh -c "yarn install && yarn vite --host 0.0.0.0"
+
+  django:
+    container_name: django
+    build:
+      context: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DJANGO_SETTINGS_MODULE=TradeVortex.settings
+      - CELERY_BROKER_URL=redis://redis:6379/0  # Redis 연결
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+      - pgadmin
+    command: >
+      sh -c "
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      gunicorn -k uvicorn.workers.UvicornWorker TradeVortex.asgi:application --bind 0.0.0.0:8000 --workers 4 --reload
+      "
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    volumes:
+      - redis_volume_data:/data
+    ports:
+      - 6379:6379
+
+  redis-insight:
+    image: redis/redisinsight
+    container_name: redis_insight
+    restart: always
+    ports:
+      - 5540:5540
+    volumes:
+      - redis_insight_volume_data:/db
+
+  celery:
+    container_name: celery
+    build:
+      context: backend
+    command: celery -A TradeVortex worker --loglevel=info
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0  # Redis 연결
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    volumes:
+      - ./backend:/app
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./servers.json:/pgadmin4/servers.json
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./frontend/build:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    depends_on:
+      - react
+      - django
+
+volumes:
+  redis_volume_data:
+  pgadmin_data:
+  redis_insight_volume_data:
