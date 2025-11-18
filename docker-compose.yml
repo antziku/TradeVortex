@@ -33,7 +33,7 @@ services:
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     depends_on:
       - redis
-      - pgadmin
+      - postgres
     command: >
       sh -c "
       python manage.py makemigrations &&
@@ -97,7 +97,21 @@ services:
       - react
       - django
 
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: tradevortex
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
 volumes:
   redis_volume_data:
   pgadmin_data:
   redis_insight_volume_data:
+  postgres_data:

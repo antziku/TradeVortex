@@ -2,16 +2,15 @@ from datetime import timedelta
 from pathlib import Path
 
 # Celery 설정
-CELERY_BROKER_URL = 'redis://192.168.0.6:6379/0'  # Redis 브로커 URL
-CELERY_RESULT_BACKEND = 'redis://192.168.0.6:6379/0'  # Redis를 결과 백엔드로 사용
-
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 # Celery 태스크 모듈
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Seoul'  # 시간대 설정
 
-SECRET_KEY = 'imsuperior'
+SECRET_KEY = 'TRADEVORTEX_SECRET_KEY'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -159,14 +158,13 @@ CORS_ALLOW_METHODS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bigdata28_p2_2',  # Database name
-        'USER': 'mp_24k_bigdata28_p2_2',  # PostgreSQL user (psql 서비스에서 설정한 POSTGRES_USER와 동일해야 함)
-        'PASSWORD': 'smhrd2',  # PostgreSQL password (psql 서비스에서 설정한 POSTGRES_PASSWORD와 동일해야 함)
-        'HOST': 'mp.smhrd.or.kr',  # PostgreSQL 컨테이너 이름
-        'PORT': '5432',  # PostgreSQL 기본 포트
+        'NAME': 'tradevortex',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'postgres',
+        'PORT': 5432,
     }
 }
-
 
 
 
@@ -261,24 +259,6 @@ REST_USE_JWT = True
 ACCOUNT_LOGOUT_ON_GET = True
 
 # settings.py
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',  # DEBUG 로그 출력
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'DEBUG',  # DEBUG 레벨 로그를 출력
-            'propagate': True,
-        },
-    },
-}
 import os
 
 MEDIA_URL = '/media/'
