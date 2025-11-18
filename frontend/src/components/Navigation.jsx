@@ -122,7 +122,7 @@ const Navigation = () => {
                 {/* 로고 */}
                 <div className="relative flex items-center justify-center space-x-2">
                     <Link to="/" className="flex items-center">
-                        <span className="absolute text-2xl text-black">TradeVortex</span>
+                        <span className={`absolute text-2xl ${isDarkMode ? "text-white" : "text-black"}`}>TradeVortex</span>
                         <img src="icons/TV.svg" alt="React Logo" className="w-8 h-8 ml-[110px] mb-[10px]"/>
                     </Link>
                 </div>

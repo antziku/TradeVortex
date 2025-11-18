@@ -51,7 +51,7 @@ const ChatApp = memo(({closeModal}) => {
 
     useEffect(() => {
         if (chatMode === "realtime" && !socketRef.current) {
-            socketRef.current = new WebSocket("ws://192.168.0.6:8000/ws/realtimechat/");
+            socketRef.current = new WebSocket("ws://localhost:8000/ws/realtimechat/");
             socketRef.current.onopen = () => {
                 setIsConnected(true);
             };

@@ -15,11 +15,9 @@ djangorestframework-simplejwt==5.3.1
 duckduckgo_search
 gunicorn
 holidays==0.63
-kubernetes==31.0.0
 openai==1.59.3
 pillow==10.4.0
 requests==2.32.3
-setuptools==75.6.0
 uvicorn[gunicorn]
 crawl4ai~=0.4.247
 websockets~=14.1
@@ -31,7 +29,6 @@ protobuf~=5.29.3
 pydantic~=2.10.5
 psycopg2-binary
 watchgod
-selenium
 google.generativeai
 scikit-learn
 transformers
