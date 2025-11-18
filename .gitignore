@@ -1,3 +1,5 @@
 /pgadmin_data/
 /postgres_data/
 /backend/staticfiles/
+__pycache__/
+*.pyc
