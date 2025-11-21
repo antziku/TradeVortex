@@ -14,7 +14,8 @@
 ## 📸 주요 화면
 
 > - 메인 대시보드
-> - 
+> - <img width="1434" height="660" alt="image0-2" src="https://github.com/user-attachments/assets/2328ef50-7cff-4dac-adb4-7bd4ba007f94" />
+
 > - 실시간 차트
 > - AI 채팅
 > - 커뮤니티
