@@ -11,16 +11,6 @@
 
 ---
 
-## 📸 주요 화면
-
-> 💡 **Tip**: 스크린샷 3-4장 추가하면 완벽합니다
-> - 메인 대시보드
-> - 실시간 차트
-> - AI 채팅
-> - 커뮤니티
-
----
-
 ## 🎯 프로젝트 개요
 
 - **개발 기간**: 2025.01.20 ~ 2025.02.05 (약 2주)
@@ -43,6 +33,8 @@
 - **실시간 채팅**: WebSocket 기반 즉각 응답
 - **감성 분석**: transformers, KoNLPy로 뉴스 감성 분석
 - **맞춤 추천**: 사용자 포트폴리오 기반 종목 추천
+- **로컬 LLM 지원**: 개발/테스트 환경에서 Ollama 사용 가능  
+  (Ollama 실행 → 모델 pull → backend .env 설정 후 docker 재시작)
 
 ### 📰 뉴스 크롤링 & 분석
 - **자동 크롤링**: Celery로 주기적 뉴스 수집 (crawl4ai)
@@ -87,7 +79,7 @@ Django 5.1 + DRF
 
 ### AI/ML
 ```
-├── LLM: OpenAI GPT, Google Gemini
+├── LLM: OpenAI GPT, Google Gemini, Ollama (Local)
 ├── Framework: PyTorch, scikit-learn, transformers
 ├── NLP: KoNLPy
 ├── Agent: CrewAI
@@ -188,6 +180,12 @@ DATABASE_URL=postgresql://postgres:postgres@postgres:5432/tradevortex
 # Redis
 CELERY_BROKER_URL=redis://redis:6379/0
 CELERY_RESULT_BACKEND=redis://redis:6379/0
+
+# 개발/테스트 환경에서 로컬 LLM(Ollama)을 사용할 경우 아래 옵션을 설정
+
+# Local LLM (optional)
+OLLAMA_BASE_URL=http://host.docker.internal:11434
+OLLAMA_MODEL=qwen3:4b-instruct-2507-q4_K_M
 
 # AI APIs
 OPENAI_API_KEY=your-openai-key
@@ -430,9 +428,9 @@ This project is licensed under the MIT License.
 
 ## 📞 문의
 
-프로젝트 관련 문의: [이메일 주소]
+프로젝트 관련 문의: fakeprice@naver.com
 
-GitHub: [GitHub 링크]
+GitHub: antziku
 
 ---
 

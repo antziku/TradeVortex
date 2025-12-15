@@ -17,10 +17,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security settings
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','0.0.0.0','192.168.0.6']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','0.0.0.0']
 
 STATIC_ROOT = "/app/staticfiles"  # 컨테이너 내의 경로로 설정
-FRONTEND_URL = "http://192.168.0.6:3000"
+FRONTEND_URL = "http://localhost:3000"
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -30,7 +30,7 @@ CACHES = {
 
 NAVER_CLIENT_ID = "6FCM6gjsZc50se9DNYRp"
 NAVER_CLIENT_SECRET = "FHA5n3PJ4X"
-NAVER_REDIRECT_URI = "http://192.168.0.6:8000/api/accounts/naver/"
+NAVER_REDIRECT_URI = "http://localhost:8000/api/accounts/naver/"
 SOCIALACCOUNT_PROVIDERS = {
     'naver': {
         'APP': {

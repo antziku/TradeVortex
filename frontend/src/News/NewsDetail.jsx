@@ -12,7 +12,7 @@ const NewsDetail = () => {
   useEffect(() => {
     // 뉴스 상세 정보를 가져오는 API 호출
     axios
-      .get(`http://192.168.0.6:8000/api/news/news/${id}`)
+      .get(`http://localhost:8000/api/news/news/${id}`)
       .then((response) => {
         setNews(response.data);
         setLoading(false);
@@ -52,7 +52,7 @@ const NewsDetail = () => {
     <div
       className="relative min-h-screen flex items-center justify-center"
       style={{
-        backgroundImage: `url(${news.image ? `http://192.168.0.6:8000${news.image}` : "/media/default_news_image.jpg"})`,
+        backgroundImage: `url(${news.image ? `http://localhost:8000${news.image}` : "/media/default_news_image.jpg"})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

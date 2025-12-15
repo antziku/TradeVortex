@@ -99,7 +99,7 @@ const ChatApp = memo(({closeModal}) => {
             setLoading(true);
 
             try {
-                const response = await axios.post("http://192.168.0.6:8000/api/aiassist/bot/", {
+                const response = await axios.post("http://localhost:8000/api/aiassist/bot/", {
                     inputs: {question: userInput},
                 });
 

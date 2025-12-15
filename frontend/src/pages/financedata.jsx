@@ -5,7 +5,6 @@ import axios from "axios";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-// django 서버 URL 설정 (예: http://192.168.0.6)
 const django = import.meta.env.VITE_DJANGO_URL;
 
 const AssetPage = () => {

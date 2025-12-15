@@ -26,7 +26,7 @@ axiosInstance.interceptors.response.use(
       if (refreshToken) {
         try {
           // 리프레시 토큰을 사용하여 새로운 액세스 토큰 요청
-          const refreshResponse = await axios.post("http://192.168.0.6:8000/api/accounts/refresh-token/", {
+          const refreshResponse = await axios.post("http://localhost:8000/api/accounts/refresh-token/", {
             refresh_token: refreshToken,  // 리프레시 토큰
           });
 

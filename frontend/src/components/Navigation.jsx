@@ -13,9 +13,9 @@ import DigitalClock from "./DigitalClock.jsx";
 import TimezoneSelect from "react-timezone-select";
 import axios from "axios";
 
-const API_BASE_URL = "http://192.168.0.6:8000/api";
+const API_BASE_URL = "http://localhost:8000/api";
 // 백엔드의 도메인 (media 파일은 이 도메인을 사용)
-const BACKEND_DOMAIN = "http:/192.168.0.6:8000";
+const BACKEND_DOMAIN = "http://localhost:8000";
 
 // 상대 경로 URL을 절대 경로로 변환하는 헬퍼 함수
 const getAbsoluteUrl = (url) => {
@@ -227,7 +227,7 @@ const Navigation = () => {
                         >
                             <div className="flex items-center space-x-2">
                              <img
-  src={`http://192.168.0.6:8000${userProfile?.profile_picture_url || "/media/default-avatar.jpg"}`}
+  src={`http://localhost:8000${userProfile?.profile_picture_url || "/media/default-avatar.jpg"}`}
   alt={`${userProfile?.username || "User"}'s Profile`}
   className="w-8 h-8 rounded-full border-2 border-gray-300 dark:border-gray-600"
 />

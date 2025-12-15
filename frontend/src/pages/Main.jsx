@@ -83,7 +83,7 @@ const Main = () => {
                                 >
                                     <div className="relative w-full h-full">
                                         <img
-                                            src={newsItem.image ? `http://192.168.0.6:8000${newsItem.image}` : "/media/default_news_image.jpg"}
+                                            src={newsItem.image ? `http://localhost:8000${newsItem.image}` : "/media/default_news_image.jpg"}
                                             alt={newsItem.title}
                                             className="object-cover w-full h-full"
                                         />

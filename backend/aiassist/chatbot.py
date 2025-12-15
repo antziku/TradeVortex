@@ -2,9 +2,8 @@ from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 import os
 from dotenv import load_dotenv
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
 
-# .env 파일 로드 ㅇㅇㅇasd123
+# .env 파일 로드
 env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 if os.path.exists(env_path):
     load_dotenv(dotenv_path=env_path)
@@ -15,12 +14,40 @@ else:
 class ChatBotCrew:
     """챗봇 전용 크루"""
 
+    def _ollama_llm(self) -> LLM:
+        """Create a local LLM client via Ollama.
+
+        Env:
+          - OLLAMA_MODEL (default: qwen3:4b-instruct-2507-q4_K_M)
+          - OLLAMA_BASE_URL (default: http://host.docker.internal:11434)
+          - OLLAMA_TEMPERATURE (default: 0.2)
+        """
+        model_name = os.getenv("OLLAMA_MODEL", "qwen3:4b-instruct-2507-q4_K_M")
+        model = model_name if model_name.startswith("ollama/") else f"ollama/{model_name}"
+        base_url = os.getenv("OLLAMA_BASE_URL", "http://host.docker.internal:11434")
+        try:
+            temperature = float(os.getenv("OLLAMA_TEMPERATURE", "0.2"))
+        except ValueError:
+            temperature = 0.2
+
+        return LLM(
+            model=model,
+            base_url=base_url,
+            api_base=base_url,
+            temperature=temperature,
+            stream=False,
+            timeout=120,
+        )
+
     @agent
     def researcher(self) -> Agent:
         return Agent(
             role="입력 검토 챗봇",
             goal="{question}에 대해 대답 챗봇에게 전달합니다.",
             backstory="빠르게 전달합니다.",
+            llm=self._ollama_llm(),
+            max_iterations=2,
+            max_time=30,
             verbose=True
         )
 
@@ -30,6 +57,9 @@ class ChatBotCrew:
             role="금융 대답 챗봇",
             goal="입력 검토 챗봇의 정보를 바탕으로 사용자 친화적인 금융 관련 답변을 작성합니다.",
             backstory="입력 검토 챗봇의 금융 데이터를 활용하여 답변을 재구성합니다.",
+            llm=self._ollama_llm(),
+            max_iterations=3,
+            max_time=60,
             verbose=True
         )
 
@@ -70,11 +100,6 @@ class ChatBotCrew:
                 tasks=[self.research_task(), self.reporting_task()],
                 process=Process.sequential,  # 순차 처리로 작업 실행
                 # memory=True,
-                embedder={
-                    "provider": "google",
-                    "config": {
-                        "api_key": "AIzaSyDCItVEkimIuwJk-z8slHzgG256VSsfBIA",
-                        "model": "models/text-embedding-004"}}
                 # knowledge_sources=[knowledge_source],
             )
             print("[DEBUG] Crew initialized successfully.")

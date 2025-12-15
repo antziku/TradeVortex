@@ -6,7 +6,7 @@ import { Loader2 } from 'lucide-react';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
 import { useSelector } from 'react-redux';
 
-const BACKEND_URL = 'http://192.168.0.6:8000';
+const BACKEND_URL = 'http://localhost:8000';
 
 const News = () => {
   const [newsList, setNewsList] = useState([]);

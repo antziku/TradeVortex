@@ -61,7 +61,7 @@ const AiAgent = ({ isOpen, closeModal }) => {
 
     const fetchHistory = async () => {
         try {
-            const res = await axios.get("http://192.168.0.6:8000/api/aiassist/history/", {
+            const res = await axios.get("http://localhost:8000/api/aiassist/history/", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                 },
@@ -84,7 +84,7 @@ const AiAgent = ({ isOpen, closeModal }) => {
 useEffect(() => {
     if (user && user.id) {
         socketRef.current = new WebSocket(
-            `ws://192.168.0.6:8000/ws/notify_${user.id}/`
+            `ws://localhost:8000/ws/notify_${user.id}/`
         );
 
         socketRef.current.onmessage = (event) => {
@@ -154,7 +154,7 @@ useEffect(() => {
         setLoading(true);
         try {
             const result = await axios.post(
-                "http://192.168.0.6:8000/api/aiassist/run/",
+                "http://localhost:8000/api/aiassist/run/",
                 { inputs: { topic: userInput } },
                 {
                     headers: {

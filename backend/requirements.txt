@@ -29,7 +29,6 @@ protobuf~=5.29.3
 pydantic~=2.10.5
 psycopg2-binary
 watchgod
-google.generativeai
 scikit-learn
 transformers
 torch

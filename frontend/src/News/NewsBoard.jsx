@@ -14,7 +14,7 @@ const NewsBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.0.6:8000/api/news/")
+      .get("http://localhost:8000/api/news/")
       .then((response) => {
         setNewsList(response.data.results); // API 응답이 `results` 배열이면 반영
         setLoading(false);
@@ -92,7 +92,7 @@ const NewsBoard = () => {
                 <img
                   src={
                     news.image
-                      ? `http://192.168.0.6:8000${news.image}`
+                      ? `http://localhost:8000${news.image}`
                       : "/media/default_news_image.jpg"
                   }
                   alt={news.title}
