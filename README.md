@@ -8,6 +8,9 @@
 [![Tech Stack](https://img.shields.io/badge/Django-5.1-green)](https://www.djangoproject.com/)
 [![Tech Stack](https://img.shields.io/badge/React-18-blue)](https://react.dev/)
 [![Tech Stack](https://img.shields.io/badge/Docker-Compose-blue)](https://docs.docker.com/compose/)
+<a href="https://github.com/unclecode/crawl4ai">
+  <img src="https://raw.githubusercontent.com/unclecode/crawl4ai/main/docs/assets/powered-by-night.svg" alt="Powered by Crawl4AI" width="200"/>
+</a>
 
 ---
 
